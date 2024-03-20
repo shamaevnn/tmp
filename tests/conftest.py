@@ -13,7 +13,7 @@ from app.db.events import connect_to_db, close_db_connection
 from main import app
 
 
-def pytest_configure(_: Config) -> None:
+def pytest_configure(config: Config) -> None:
     """
     Allows plugins and conftest files to perform initial configuration.
     This hook is called for every plugin and initial conftest

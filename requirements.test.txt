@@ -9,3 +9,5 @@ pytest-icdiff==0.6
 
 # for stairway test
 SQLAlchemy-Utils==0.38.2
+
+httpx

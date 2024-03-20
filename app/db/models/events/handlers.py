@@ -51,5 +51,5 @@ async def create_event(params: CreateEvent) -> tuple[GetEvent | None, str | None
 
 async def event_exists(event_id: str) -> bool:
     query = select([Event.id]).where(Event.id == event_id).limit(1)
-    res: Record = await database.fetch_one(query)
+    res: Record = await database.fetch_val(query)
     return bool(res)

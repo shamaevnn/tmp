@@ -5,9 +5,9 @@ from pydantic import BaseSettings, PostgresDsn, validator
 
 
 class AppEnvTypes(Enum):
-    PROD: str = "prod"
-    DEV: str = "dev"
-    TEST: str = "test"
+    PROD: str = "PROD"
+    DEV: str = "DEV"
+    TEST: str = "TEST"
 
 
 class Settings(BaseSettings):

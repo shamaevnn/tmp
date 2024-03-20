@@ -1,4 +1,4 @@
-from asyncpg import NotNullViolationError, UniqueViolationError
+from asyncpg import NotNullViolationError, UniqueViolationError, ForeignKeyViolationError
 from sqlalchemy import select, insert, literal_column, update, func
 from app.api.bets.schemas import CreateBet, GetBet
 from app.api.events.schemas import UpdateEventStatusEnum
@@ -26,8 +26,7 @@ async def create_new_bet(params: CreateBet) -> tuple[str | None, str | None]:
     transaction = await database.transaction()
     try:
         bet_id: str = await database.fetch_val(query)
-        # bet_id = row._mapping.values()
-    except (NotNullViolationError, UniqueViolationError) as exc:
+    except (NotNullViolationError, UniqueViolationError, ForeignKeyViolationError) as exc:
         await transaction.rollback()
         return None, str(exc)
     else:
@@ -47,3 +46,9 @@ async def count_all_bets() -> int:
     query = select(func.count()).select_from(Bet)
     count: int = await database.execute(query)
     return count
+
+
+async def bet_exists(bet_id: str) -> bool:
+    query = select([Bet.id]).where(Bet.id == bet_id).limit(1)
+    res = await database.fetch_one(query)
+    return bool(res)
