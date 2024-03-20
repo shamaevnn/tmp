@@ -1,4 +1,4 @@
-# Covirally backend
+# Bet-Maker backend
 
 ## First run
 1. Create virtual environment and install dependencies
@@ -7,6 +7,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 pip install -r requirements.dev.txt
+pip install -r requirements.test.txt
 ```
 2. Install `pre-commit` hooks
 ```{shell}
@@ -19,38 +20,23 @@ cp .env_example .env
 ```
 
 ## Running locally
-1. Run all necessary services (DB and so on)
+1. Launch server and DB
 ```{shell}
-make services
+make up
 ```
-2. Apply migrations
+1. Apply migrations
 ```{shell}
 make migrate
 ```
-3. Run backend on FastAPI (in separate terminal window)
-```{shell}
-make dev
-```
-4. Check http://0.0.0.0:80/docs, everything should be OK!
+1. Check http://0.0.0.0:80/docs, everything should be OK!
 
 
 ## Testing
 Some steps should be made to run tests.
 
-1. Tests must be run only with `APP_ENV=test`, there will be an error otherwise.
-2. Test database must be running. One can do this via command:
-    ```shell
-    make test_services
-    ```
-   **NB**: It's not necessary to change your `DATABASE_URL` env.
-   There is automatic replacemet of database name while running tests.
-3. Install test dependencies:
-```shell
-pip install -r requirements.test.txt
-```
+Tests must be run only with `APP_ENV=TEST`, there will be an error otherwise.
 
-After that you can run your tests:
-
+To run tests, stop your container with server (**betmaker_server**) and type:
 ```{shell}
 make run_tests
 ```

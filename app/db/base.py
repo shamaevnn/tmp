@@ -17,10 +17,11 @@ metadata = sqlalchemy.MetaData()
 def get_test_db_url(db_url: str | PostgresDsn, end_sufix: str = "test") -> str:
     """
     Replace name of db with test sufix.
-    From this: postgresql://postgres:postgres@0.0.0.0:5432/postgres
+    From this: postgresql://postgres:postgres@db:5432/postgres
     To this: postgresql://postgres:postgres@0.0.0.0:5432/test
     """
-    return str(URL(str(db_url)).with_path(end_sufix))
+    url_with_new_host = str(db_url).replace("db", "0.0.0.0")
+    return str(URL(url_with_new_host).with_path(end_sufix))
 
 
 def get_db(db_url: str | PostgresDsn) -> Database:
