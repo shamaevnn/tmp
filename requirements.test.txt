@@ -1,0 +1,11 @@
+pytest==7.1.3
+pytest-cov
+pytest-timeout==2.1.0
+pytest-asyncio==0.18.1
+pytest-dotenv==0.5.2
+pytest-mock==3.7.0
+pytest-sugar==0.9.7
+pytest-icdiff==0.6
+
+# for stairway test
+SQLAlchemy-Utils==0.38.2
